@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-forest-950: #04130d;
+  --color-forest-900: #0b2a1f;
+  --color-night-900: #0a1a2a;
+
+  --color-health-excellent: #34d399;
+  --color-health-good: #bef264;
+  --color-health-fair: #fbbf24;
+  --color-health-poor: #fb923c;
+  --color-health-critical: #fb7185;
+  --color-health-dead: #94a3b8;
+
+  --ease-canopy: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The single glass recipe. GlassCard, Dialog, Drawer, Sidebar and chart tooltips use it. */
+@utility glass-panel {
+  position: relative;
+  background-color: rgb(255 255 255 / 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset-inline: 1rem;
+    top: 0;
+    height: 1px;
+    background: rgb(255 255 255 / 0.1);
+    pointer-events: none;
+  }
+}
+
+/* Denser glass for overlays that sit above other glass. */
+@utility glass-overlay {
+  background-color: rgb(8 24 20 / 0.82);
+}
+
+@utility focus-ring {
+  outline: none;
+  &:focus-visible {
+    box-shadow: 0 0 0 2px rgb(52 211 153 / 0.6);
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: rgb(255 255 255 / 0.9);
+    background-color: var(--color-forest-950);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: rgb(52 211 153 / 0.35);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.15) transparent;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+  }
+
+  select option {
+    background-color: var(--color-forest-900);
+    color: white;
+  }
+}
+
+/* Range inputs (single and dual thumb). */
+.range-input {
+  appearance: none;
+  background: transparent;
+  width: 100%;
+  height: 1.25rem;
+}
+.range-input::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: transparent;
+}
+.range-input::-moz-range-track {
+  height: 4px;
+  background: transparent;
+}
+.range-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border-radius: 999px;
+  background: #34d399;
+  border: 2px solid #04130d;
+  box-shadow: 0 0 0 4px rgb(52 211 153 / 0.2);
+  cursor: grab;
+  pointer-events: auto;
+}
+.range-input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #34d399;
+  border: 2px solid #04130d;
+  cursor: grab;
+  pointer-events: auto;
+}
+.range-input:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgb(52 211 153 / 0.6);
+}
+.range-input:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 4px rgb(52 211 153 / 0.6);
+}
+.range-input-dual {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Leaflet on glass. */
+.leaflet-container {
+  background: #0a1a17;
+  font-family: var(--font-sans);
+  border-radius: 0.75rem;
+}
+.leaflet-control-attribution {
+  background: rgb(4 19 13 / 0.7) !important;
+  color: rgb(255 255 255 / 0.55) !important;
+  font-size: 10px;
+}
+.leaflet-control-attribution a {
+  color: #6ee7b7 !important;
+}
+.leaflet-bar a {
+  background: rgb(8 24 20 / 0.9) !important;
+  color: rgb(255 255 255 / 0.8) !important;
+  border-color: rgb(255 255 255 / 0.1) !important;
+}
+.leaflet-tooltip.canopy-tooltip {
+  background: rgb(8 24 20 / 0.92);
+  color: white;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  font-size: 12px;
+}
+.leaflet-tooltip.canopy-tooltip::before {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
