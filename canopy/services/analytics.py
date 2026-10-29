@@ -53,7 +53,7 @@ class AnalyticsService:
         localities = self._inventory.locations(LocationKind.LOCALITY)
         ranked = sorted(
             self._inventory.count_by_species().items(),
-            key=lambda item: (-item[1], self._taxonomy.species(item[0]).common_name),
+            key=lambda item: (-item[1], self._taxonomy.species(item[0]).common_name.casefold()),
         )
         return Summary(
             stats=stats_by_node[self._inventory.city.id],

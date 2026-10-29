@@ -112,7 +112,7 @@ class TaxonomyService:
         counts = Counter(specimen.site.id for specimen in specimens)
         by_site = tuple(
             SiteExposure(sites[site_id], count)
-            for site_id, count in sorted(counts.items(), key=lambda item: (-item[1], sites[item[0]].name))
+            for site_id, count in sorted(counts.items(), key=lambda item: (-item[1], sites[item[0]].name.casefold()))
         )
         return Outbreak(taxon, specimens, by_site)
 
