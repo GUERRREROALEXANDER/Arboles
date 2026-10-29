@@ -5,8 +5,10 @@ data structures.
 
 Bogota's street and park trees are tracked in a public census: tag, species,
 location, size and health. Crews use it to decide what to prune, treat or replace.
-Canopy reproduces that workflow on a slice of the city (6 localities, 15 sites,
+Canopy reproduces that workflow on a slice of the city (6 localities, 14 sites,
 around 200 specimens) and shows how each question maps to a tree operation.
+
+![Dashboard](docs/screenshots/dashboard.png)
 
 ## Why trees
 
@@ -35,6 +37,12 @@ generic, so the domain layer only decides what goes inside them.
   range query that reports how many nodes it visited.
 - **Specimen panel**: growth chart from field measurements, risk, stored CO2,
   and its location and taxonomy paths.
+
+| Inventory | Taxonomy |
+| --- | --- |
+| ![Inventory](docs/screenshots/inventory.png) | ![Taxonomy](docs/screenshots/taxonomy.png) |
+| **Workshop** | **DBH index** |
+| ![Workshop](docs/screenshots/workshop.png) | ![DBH index](docs/screenshots/index.png) |
 
 ## Domain formulas
 
