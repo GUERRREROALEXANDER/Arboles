@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 
 import pytest
 
-from canopy.domain import HealthStatus, Specimen, WorkOrder, WorkOrderKind, WorkOrderStatus
+from canopy.domain import HealthStatus, Measurement, Specimen, WorkOrder, WorkOrderKind, WorkOrderStatus
 from canopy.domain.work_order import default_priority
 from canopy.errors import ConflictError, ValidationError
 
@@ -88,7 +88,8 @@ def test_default_priority_is_specimen_risk(specimen: Specimen) -> None:
 
 
 def test_default_priority_is_at_least_one(specimen: Specimen) -> None:
+    specimen.record(Measurement(date(2025, 1, 1), 0.5, 38, 1))
     specimen.assess(health=HealthStatus.EXCELLENT, lean_deg=0)
-    tiny = specimen.risk
 
-    assert default_priority(specimen) == max(1, tiny)
+    assert specimen.risk == 0
+    assert default_priority(specimen) == 1
